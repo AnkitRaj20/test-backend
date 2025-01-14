@@ -1,10 +1,13 @@
+/* eslint-disable no-undef */
 import express from 'express';
 import mysql from 'mysql2';
 import { Server } from 'socket.io';
 import http from 'http';
 import cors from 'cors';
 import fs from 'fs';
-// import path from 'path'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 // Create express app
 const app = express();
@@ -16,38 +19,8 @@ const app = express();
 //   password: 'Ankit@mysql',
 //   database: 'taskdb',
 // });
-const uri = 'mysql://avnadmin:AVNS_mgVP36Jq6ds2fJuLI3U@mysql-3a638694-iamsushmita005-5988.c.aivencloud.com:11221/defaultdb?ssl-mode=REQUIRED';
-// const caCertificatePath = `-----BEGIN CERTIFICATE-----
-// MIIEQTCCAqmgAwIBAgIUaJm0lz5JdXKHEC++aq+o79t8D/YwDQYJKoZIhvcNAQEM
-// BQAwOjE4MDYGA1UEAwwvYjBhZGZlMDgtZjcyYy00NmQ4LWJlYzktYjRlODYzNDg0
-// ZDMwIFByb2plY3QgQ0EwHhcNMjUwMTE0MTYxODM2WhcNMzUwMTEyMTYxODM2WjA6
-// MTgwNgYDVQQDDC9iMGFkZmUwOC1mNzJjLTQ2ZDgtYmVjOS1iNGU4NjM0ODRkMzAg
-// UHJvamVjdCBDQTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBALgjU/wj
-// oU4chCHLtYLpzHBt8teHKy+UvmooHIkYhhcuDmgxNz6SQO/Bda/WDz5S62Im3s8w
-// awS0QuaRZNeLuo2ChQoJ0eLX7BZB1ahMS6Gm98P0dtpx4/Ji7LLi/EzVqqszn0OT
-// UDsTRTwVls4Sb7uXd+y3O1fzT0MmYg+Autxlh8PRKgxRoRAaxxOFfUWW9mOKzKlZ
-// 5VjH7HwdUSHhj7cnhfx23l/lS9iXonRNrvniL1HQrc8CRgNnr7a0M3lWzoy62YSE
-// 0qX/aao80kJFKpkcTZpzbMX7NJaViFAtCGi0zfnEBGhmLQXqWNGb2riJMJwiEIKo
-// opwumphIdFApnCJAT6oEbeeqIZCwTuaIRuE06mPQB3DX0jlM7Z9KXiq/8rDyn8PL
-// /NamBgZ8Q1/68C/D+CSZcdqzIN6XtQL/ccbej4WHlwqVO1WT72/oxb3JjS0xT2t+
-// PlzIAzBy+pBgKCdxgeQ7TWBEhD1cHz/D2FIvXLugbaWmxp4nWacHIDpRGQIDAQAB
-// oz8wPTAdBgNVHQ4EFgQUMUVHzgeVo7CrgwZC8DiYnGWDWMMwDwYDVR0TBAgwBgEB
-// /wIBADALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQEMBQADggGBABRMaHt/vNAxff6S
-// cn9BqQKv1TaUYQY1focy6ffYTih6NDwyTShoB80j4xoXj2hkrQLtN0wUonfRdk3G
-// FS+t3Q5HjiT5+TN7cV4h5BKzhIGbUkIwulJuGIEsBiqfsaR2o10674RlmUdM3084
-// E608SnuI1fpUGd0/QZZtRA1MgZzZFypfW0Fq8AdM+mCBzrrLW4YgwWtOg4D6Sm0f
-// Kq+p+vFdETmxyPQAbCCnuCXUMkpnkWDz5yuX9EBUFs4gb0fLRCiigGMY6boSQavC
-// 7cGZqbACHe/gLqIFLbRnptSsnquEEZkeCx6KYUpQX+nOIkDUw1XUH868Cgk39sn0
-// RVHPawJyhipDZjZOizYWXzd5GwLbQ8wDrPEk+wk557+C7099iV2qltFXxHsyluPQ
-// A27DugIMq3ck0Dfy1EsRQ4fJ/b3pMTUaBJDlZ8FQZpJhdJ5t6N020jH+ntUOvFDv
-// UL7PfAvBTwGPqmrKTM1Z+HOsJnFtnzzaSgYQv0ED0/KuNRej/Q==
-// -----END CERTIFICATE-----`; // Update with the actual path to your CA certificate
-
-// Parse the URI manually
-
-// Get the current directory name from the module URL
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+// const uri = 'mysql://avnadmin:AVNS_mgVP36Jq6ds2fJuLI3U@mysql-3a638694-iamsushmita005-5988.c.aivencloud.com:11221/defaultdb?ssl-mode=REQUIRED';
+const uri = process.env.MYSQL_URI
 const caCertificatePath = './ca (3).pem'
 
 const match = uri.match(/mysql:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/([^?]+)\?ssl-mode=REQUIRED/);
