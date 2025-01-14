@@ -12,14 +12,7 @@ dotenv.config()
 // Create express app
 const app = express();
 
-// Setup MySQL connection
-// const db = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'Ankit@mysql',
-//   database: 'taskdb',
-// });
-// const uri = 'mysql://avnadmin:AVNS_mgVP36Jq6ds2fJuLI3U@mysql-3a638694-iamsushmita005-5988.c.aivencloud.com:11221/defaultdb?ssl-mode=REQUIRED';
+
 const uri = process.env.MYSQL_URI
 const caCertificatePath = './ca (3).pem'
 
